@@ -1,13 +1,10 @@
-// src/utils/constants.ts
-
 export const PATH_NAMES = {
+  ROOT: '/',
   PUBLIC: {
     LOGIN: '/login',
-    // Add more public paths here if needed
+    CHANGE_PASSWORD: '/login/change-password',
   },
   SECURED: {
-    HOME: '/home',
-    // Add more secured paths here if needed
+    USER_DATA: '/user-data',
   },
-  ROOT: '/',
 };

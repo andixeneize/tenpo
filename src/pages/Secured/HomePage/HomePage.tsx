@@ -1,5 +1,5 @@
 // src/pages/Secured/HomePage/HomePage.tsx
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/contexts/useAuth';
 import { PATH_NAMES } from '@/utils/constants';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

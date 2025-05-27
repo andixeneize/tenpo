@@ -1,4 +1,3 @@
-// src/routes/PublicRoutes.tsx
 import ChangePasswordPage from '@/pages/Public/LoginPage/ChangePasswordPage/ChangePasswordPage';
 import LoginPage from '@/pages/Public/LoginPage/LoginPage';
 import React from 'react';
@@ -9,7 +8,7 @@ const PublicRoutes: React.FC = () => {
     <Routes>
       <Route index element={<LoginPage />} />
       <Route path='change-password' element={<ChangePasswordPage />} />
-      <Route path='*' element={<Navigate to='' replace />} />
+      <Route path='*' element={<Navigate to='/login' replace />} />
     </Routes>
   );
 };

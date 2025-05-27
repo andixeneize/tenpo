@@ -1,55 +1,29 @@
-// src/pages/Public/LoginPage/LoginPage.tsx
-import useAuth from '@/hooks/useAuth';
-import { PATH_NAMES } from '@/utils/constants';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Use useEffect for redirection logic based on authentication status
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate(PATH_NAMES.SECURED.HOME, { replace: true });
+    if (isAuthenticated && location.pathname === '/login') {
+      navigate('/', { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, location.pathname, navigate]);
 
-  // Handle the simulated login button click
   const handleLogin = () => {
-    login();
-    navigate(PATH_NAMES.SECURED.HOME, { replace: true });
+    login(); // login actualiza el contexto, el efecto redirige
   };
 
   if (isAuthenticated) {
-    console.log('isAuthenticated on Login');
-    return null;
+    return null; // No renderizamos login si ya está autenticado
   }
 
   return (
-    <div
-      className='
-        min-h-screen
-        flex
-        flex-col
-        items-center
-        justify-center
-        p-4
-        bg-gray-100
-        font-sans
-      '
-    >
-      <div
-        className='
-          bg-white
-          p-8
-          rounded-lg
-          shadow-md
-          text-center
-          max-w-md
-          w-full
-        '
-      >
+    <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100 font-sans'>
+      <div className='bg-white p-8 rounded-lg shadow-md text-center max-w-md w-full'>
         <h1 className='text-3xl font-bold text-gray-800 mb-4'>
           Welcome to the Login Page
         </h1>
@@ -57,19 +31,10 @@ const LoginPage: React.FC = () => {
         <button
           onClick={handleLogin}
           className='
-            px-4 py-2
-            text-base
-            bg-blue-500
-            text-white
-            rounded-md
-            hover:bg-blue-600
-            focus:outline-none
-            focus:ring-2
-            focus:ring-blue-500
-            focus:ring-opacity-50
-            transition-colors
-            duration-200
-            ease-in-out
+            px-4 py-2 text-base bg-blue-500 text-white rounded-md
+            hover:bg-blue-600 focus:outline-none focus:ring-2
+            focus:ring-blue-500 focus:ring-opacity-50 transition-colors
+            duration-200 ease-in-out
           '
         >
           Log In (Simulated)

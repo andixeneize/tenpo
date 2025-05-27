@@ -1,4 +1,3 @@
-// src/routes/SecuredRoutes.tsx
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import RouteProtection from './RouteProtection';
@@ -11,7 +10,7 @@ const SecuredRoutes: React.FC = () => {
       <Route element={<RouteProtection />}>
         <Route index element={<HomePage />} />
         <Route path='user-data' element={<UserDataPage />} />
-        <Route path='*' element={<Navigate to='' replace />} />
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Route>
     </Routes>
   );

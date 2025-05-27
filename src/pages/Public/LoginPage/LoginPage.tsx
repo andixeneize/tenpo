@@ -1,11 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+const fakeApiLogin = (
+  email: string,
+  password: string
+): Promise<{ token: string }> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (email && password) {
+        resolve({ token: 'token-fake-123456' });
+      } else {
+        reject(new Error('Invalid credentials'));
+      }
+    }, 1000); // simula 1s de latencia
+  });
+};
 
 const LoginPage: React.FC = () => {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated && location.pathname === '/login') {
@@ -13,36 +33,65 @@ const LoginPage: React.FC = () => {
     }
   }, [isAuthenticated, location.pathname, navigate]);
 
-  const handleLogin = () => {
-    login(); // login actualiza el contexto, el efecto redirige
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fakeApiLogin(email, password);
+      localStorage.setItem('authToken', response.token);
+      login(response.token);
+    } catch (err) {
+      console.log('Error: ', err);
+      setError('Login failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (isAuthenticated) {
-    return null; // No renderizamos login si ya está autenticado
+    return null;
   }
 
   return (
     <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100 font-sans'>
       <div className='bg-white p-8 rounded-lg shadow-md text-center max-w-md w-full'>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>
-          Welcome to the Login Page
-        </h1>
-        <p className='text-gray-600 mb-6'>This page is publicly accessible.</p>
-        <button
-          onClick={handleLogin}
-          className='
-            px-4 py-2 text-base bg-blue-500 text-white rounded-md
-            hover:bg-blue-600 focus:outline-none focus:ring-2
-            focus:ring-blue-500 focus:ring-opacity-50 transition-colors
-            duration-200 ease-in-out
-          '
-        >
-          Log In (Simulated)
-        </button>
-        <p className='text-sm text-gray-500 mt-4'>
-          Click the button to simulate a successful login and proceed to the
-          secured home page.
-        </p>
+        <h1 className='text-3xl font-bold text-gray-800 mb-4'>Login</h1>
+
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <input
+            type='email'
+            placeholder='Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className='p-2 border rounded'
+            disabled={loading}
+          />
+          <input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className='p-2 border rounded'
+            disabled={loading}
+          />
+          <button
+            type='submit'
+            disabled={loading}
+            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition'
+          >
+            {loading ? 'Logging in...' : 'Log In'}
+          </button>
+        </form>
+
+        {error && (
+          <p className='mt-4 text-red-600 font-semibold' role='alert'>
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );

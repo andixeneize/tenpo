@@ -4,30 +4,32 @@ import { AuthContext } from './AuthContext';
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    localStorage.getItem('isAuthenticated') === 'true'
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem('authToken')
   );
 
-  const login = () => {
-    localStorage.setItem('isAuthenticated', 'true');
-    setIsAuthenticated(true);
+  const isAuthenticated = Boolean(token);
+
+  const login = (newToken: string) => {
+    localStorage.setItem('authToken', newToken);
+    setToken(newToken);
   };
 
   const logout = () => {
-    localStorage.removeItem('isAuthenticated');
-    setIsAuthenticated(false);
+    localStorage.removeItem('authToken');
+    setToken(null);
   };
 
   useEffect(() => {
-    const syncAuth = () => {
-      setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
+    const syncToken = () => {
+      setToken(localStorage.getItem('authToken'));
     };
-    window.addEventListener('storage', syncAuth);
-    return () => window.removeEventListener('storage', syncAuth);
+    window.addEventListener('storage', syncToken);
+    return () => window.removeEventListener('storage', syncToken);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -10,8 +10,8 @@ const HomePage: React.FC = () => {
 
   // Handle the logout button click
   const handleLogout = () => {
-    logout(); // Call the logout function from our useAuth hook
-    navigate(PATH_NAMES.PUBLIC.LOGIN, { replace: true }); // Redirect to login page after logout
+    logout();
+    navigate(PATH_NAMES.PUBLIC.LOGIN, { replace: true });
   };
 
   return (
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
           className='
             px-4 py-2
             text-base
-            bg-red-600     {/* Tailwind red color for logout */}
+            bg-red-600
             text-white
             rounded-md
             hover:bg-red-700

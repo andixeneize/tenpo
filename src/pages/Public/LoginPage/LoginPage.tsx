@@ -1,7 +1,7 @@
 // src/pages/Public/LoginPage/LoginPage.tsx
 import useAuth from '@/hooks/useAuth';
 import { PATH_NAMES } from '@/utils/constants';
-import React, { useEffect } from 'react'; // Import useEffect
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
@@ -11,25 +11,18 @@ const LoginPage: React.FC = () => {
   // Use useEffect for redirection logic based on authentication status
   useEffect(() => {
     if (isAuthenticated) {
-      // console.log('LoginPage: User is authenticated, redirecting to HOME.'); // Optional: keep for initial debugging
       navigate(PATH_NAMES.SECURED.HOME, { replace: true });
     }
-    // Add isAuthenticated and navigate to the dependency array.
-    // React Hook useEffect has a missing dependency: 'navigate'. Either include it or remove the dependency array.
-    // React Hook useEffect has a missing dependency: 'isAuthenticated'. Either include it or remove the dependency array.
-  }, [isAuthenticated, navigate]); // Dependencies: Re-run effect if isAuthenticated or navigate changes
+  }, [isAuthenticated, navigate]);
 
   // Handle the simulated login button click
   const handleLogin = () => {
-    login(); // Call the login function from our useAuth hook
-    // console.log('LoginPage: Simulating login, redirecting to HOME.'); // Optional: keep for initial debugging
-    // The navigate after login click is fine here, as it's in an event handler.
+    login();
     navigate(PATH_NAMES.SECURED.HOME, { replace: true });
   };
 
-  // If the user is authenticated, we return null immediately.
-  // The useEffect above will handle the navigation.
   if (isAuthenticated) {
+    console.log('isAuthenticated on Login');
     return null;
   }
 

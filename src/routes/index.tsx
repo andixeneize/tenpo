@@ -3,19 +3,17 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import PublicRoutes from './PublicRoutes';
 import SecuredRoutes from './SecuredRoutes';
-import useAuth from '../hooks/useAuth';
-import { PATH_NAMES } from '../utils/constants';
+import useAuth from '@/hooks/useAuth';
+import { PATH_NAMES } from '@/utils/constants';
 
 const AppRouter: React.FC = () => {
-  const { isAuthenticated } = useAuth(); // This hook determines the initial redirect
-
-  console.log('index: ', isAuthenticated);
+  const { isAuthenticated } = useAuth();
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path={PATH_NAMES.ROOT} // This is '/'
+          path={PATH_NAMES.ROOT}
           element={
             isAuthenticated ? (
               <Navigate to={PATH_NAMES.SECURED.HOME} replace />

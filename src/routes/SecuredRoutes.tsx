@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import RouteProtection from './RouteProtection';
-import HomePage from '@/pages/Secured/HomePage/HomePage';
 import UserDataPage from '@/pages/Secured/UserDataPage/UserDataPage';
 import SecuredLayout from '@/layouts/SecuredLayout';
+import HomePage from '@/pages/Secured/HomePage/HomePage';
 
 const SecuredRoutes: React.FC = () => {
   return (

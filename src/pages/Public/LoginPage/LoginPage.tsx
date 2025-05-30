@@ -98,7 +98,7 @@ const LoginPage: React.FC = () => {
               disabled={loading}
               className='px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition'
             >
-              {loading ? 'Logging in...' : 'Log In'}
+              {loading ? 'Ingresando...' : 'Ingresar'}
             </button>
           </form>
 

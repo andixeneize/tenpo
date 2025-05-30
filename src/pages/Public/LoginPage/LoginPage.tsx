@@ -59,7 +59,11 @@ const LoginPage: React.FC = () => {
       {/* Left side (desktop) / Top (mobile) */}
       <div
         className='w-full md:w-1/2 h-[50vh] md:h-auto bg-cover bg-center'
-        style={{ backgroundImage: "url('/images/login-bg.jpg')" }}
+        style={{
+          backgroundImage: `url('${
+            import.meta.env.BASE_URL
+          }images/login-bg.jpg')`,
+        }}
       />
 
       {/* Right side (desktop) / Bottom (mobile) */}
@@ -67,7 +71,7 @@ const LoginPage: React.FC = () => {
         <div className='p-8 text-center w-full max-w-md'>
           {/* Logo (desktop) */}
           <img
-            src='/images/logo.png'
+            src={`${import.meta.env.BASE_URL}images/logo.png`}
             alt='Logo'
             className='hidden md:block mx-auto mb-6 w-24 h-24'
           />

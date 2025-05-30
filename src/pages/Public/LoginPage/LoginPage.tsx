@@ -55,46 +55,52 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div
-      className='min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center font-sans'
-      style={{ backgroundImage: "url('/images/login-bg.jpg')" }}
-    >
-      <div className='bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-lg shadow-lg text-center max-w-md w-full'>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>Login</h1>
+    <div className='min-h-screen flex flex-col md:flex-row font-sans'>
+      {/* Parte superior en mobile, izquierda en desktop */}
+      <div
+        className='w-full md:w-1/2 h-[50vh] md:h-auto bg-cover bg-center'
+        style={{ backgroundImage: "url('/images/login-bg.jpg')" }}
+      />
 
-        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-          <input
-            type='email'
-            placeholder='Email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className='p-2 border rounded'
-            disabled={loading}
-          />
-          <input
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className='p-2 border rounded'
-            disabled={loading}
-          />
-          <button
-            type='submit'
-            disabled={loading}
-            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition'
-          >
-            {loading ? 'Logging in...' : 'Log In'}
-          </button>
-        </form>
+      {/* Parte inferior en mobile, derecha en desktop */}
+      <div className='w-full md:w-1/2 h-1/2 md:h-auto flex items-center justify-center bg-white'>
+        <div className='p-8 text-center w-full'>
+          <h1 className='text-3xl font-bold text-gray-800 mb-4'>Login</h1>
 
-        {error && (
-          <p className='mt-4 text-red-600 font-semibold' role='alert'>
-            {error}
-          </p>
-        )}
+          <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+            <input
+              type='email'
+              placeholder='Email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className='p-2 border rounded'
+              disabled={loading}
+            />
+            <input
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className='p-2 border rounded'
+              disabled={loading}
+            />
+            <button
+              type='submit'
+              disabled={loading}
+              className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition'
+            >
+              {loading ? 'Logging in...' : 'Log In'}
+            </button>
+          </form>
+
+          {error && (
+            <p className='mt-4 text-red-600 font-semibold' role='alert'>
+              {error}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

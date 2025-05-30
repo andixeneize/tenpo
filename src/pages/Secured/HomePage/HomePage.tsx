@@ -1,73 +1,51 @@
-// src/pages/Secured/HomePage/HomePage.tsx
-import { useAuth } from '@/contexts/useAuth';
-import { PATH_NAMES } from '@/utils/constants';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { fetchBooks } from '@/services/BookService';
+import type { Book } from '@/types/book';
+import { useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { BookCard } from './BookCard';
+import { Loader } from 'lucide-react';
 
-const HomePage: React.FC = () => {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
+const Home = () => {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  // Handle the logout button click
-  const handleLogout = () => {
-    logout();
-    navigate(PATH_NAMES.PUBLIC.LOGIN, { replace: true });
+  const loadMoreBooks = async () => {
+    const newBooks = await fetchBooks(page);
+    setBooks((prev) => [...prev, ...newBooks]);
+    setPage((prev) => prev + 1);
+
+    // Simulamos corte en 2000 libros
+    if (books.length + newBooks.length >= 2000) {
+      setHasMore(false);
+    }
   };
 
+  useEffect(() => {
+    loadMoreBooks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div
-      className='
-        min-h-screen
-        flex
-        flex-col
-        items-center
-        justify-center
-        p-4
-        bg-gray-100
-        font-sans
-      '
-    >
-      <div
-        className='
-          bg-white
-          p-8
-          rounded-lg
-          shadow-md
-          text-center
-          max-w-md
-          w-full
-        '
+    <div className='max-w-3xl mx-auto px-4 py-6'>
+      <h1 className='text-xl mb-4'>Libros encontrados en openlibrary.org</h1>
+      <InfiniteScroll
+        dataLength={books.length}
+        next={loadMoreBooks}
+        hasMore={hasMore}
+        loader={
+          <div className='flex justify-center my-6'>
+            <Loader className='w-6 h-6 text-gray-500 animate-spin' />
+          </div>
+        }
+        endMessage={<p className='text-center mt-4'>Fin del listado.</p>}
       >
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>Welcome Home!</h1>
-        <p className='text-gray-600 mb-6'>
-          You have successfully accessed a secured page.
-        </p>
-        <button
-          onClick={handleLogout}
-          className='
-            px-4 py-2
-            text-base
-            bg-red-600
-            text-white
-            rounded-md
-            hover:bg-red-700
-            focus:outline-none
-            focus:ring-2
-            focus:ring-red-500
-            focus:ring-opacity-50
-            transition-colors
-            duration-200
-            ease-in-out
-          '
-        >
-          Log Out
-        </button>
-        <p className='text-sm text-gray-500 mt-4'>
-          This page is protected and can only be viewed by authenticated users.
-        </p>
-      </div>
+        {books.map((book, index) => (
+          <BookCard key={`${book.key}-${index}`} book={book} />
+        ))}
+      </InfiniteScroll>
     </div>
   );
 };
 
-export default HomePage;
+export default Home;

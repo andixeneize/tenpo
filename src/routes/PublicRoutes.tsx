@@ -1,4 +1,4 @@
-import ChangePasswordPage from '@/pages/Public/LoginPage/ChangePasswordPage/ChangePasswordPage';
+import ChangePasswordPage from '@/pages/Public/ChangePasswordPage/ChangePasswordPage';
 import LoginPage from '@/pages/Public/LoginPage/LoginPage';
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';

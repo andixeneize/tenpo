@@ -57,32 +57,32 @@ La lista de libros se muestra con scroll infinito, lo que permite cargar progres
 - Reduce la carga inicial y uso de memoria al no cargar todos los libros a la vez.
 - Es sencilla de implementar con React Infinite Scroll Component.
 
-### Mejora teórica para llamadas al backend
+### Mejoras teóricas propuestas para la API de Open Library
 
-Para optimizar la eficiencia en las llamadas a la API se propone:
+1. **Incluir metadatos completos de paginación**  
+   Incorporar en la respuesta campos como `currentPage`, `totalPages`, `hasNextPage` y `pageSize` para facilitar la navegación paginada y el control del infinite scroll en el frontend.
 
-- Implementar **caching** de resultados ya cargados para evitar peticiones repetidas.
-- Utilizar técnicas como **debouncing** en posibles búsquedas para limitar el número de requests.
-- Precargar la siguiente página en background para minimizar la espera del usuario.
-- Manejar adecuadamente errores y reintentos para mayor robustez.
+2. **Selección de campos específicos (Field selection)**  
+   Permitir al cliente solicitar únicamente los campos necesarios en la respuesta, reduciendo el tamaño del payload y mejorando el rendimiento de la aplicación.
+
+3. **Filtros avanzados en la búsqueda**  
+   Añadir parámetros que permitan filtrar por rangos de años de publicación, idioma, temas o autores, aumentando la relevancia de los resultados y disminuyendo la cantidad de datos transferidos.
+
+4. **Compresión de respuestas HTTP**  
+   Garantizar que las respuestas JSON estén comprimidas utilizando gzip o Brotli, optimizando la transferencia de datos especialmente en conexiones lentas o móviles.
+
+5. **Mejor control y documentación del rate limiting**  
+   Implementar límites de uso claros con mensajes de error informativos y mantener una documentación actualizada para evitar bloqueos inesperados durante el consumo de la API.
+
 
 ---
 
 ## Cómo contribuir / ideas futuras
 
-- Mejorar el diseño responsivo y accesibilidad.
+- Mejorar el diseño y accesibilidad.
 - Agregar filtros y búsquedas dinámicas.
-- Implementar autenticación y gestión de favoritos.
+- Implementar página de detalle y gestión de favoritos.
 - Publicar en plataforma cloud con CI/CD.
-
----
-
-## Detalles adicionales
-
-- La `BookCard` muestra información básica del libro y el año de publicación.
-- El año tiene un tooltip o diseño que indica explícitamente que es el “Año de publicación”.
-- Las keys de cada tarjeta combinan `book.key` y otro identificador para evitar duplicados.
-- Se manejan errores intermitentes de la API con reintentos automáticos en errores 500.
 
 ---
 

@@ -14,7 +14,7 @@ Utiliza React, Vite y TailwindCSS para construir una interfaz rápida, responsiv
 - TailwindCSS para estilos
 - Axios para llamadas HTTP
 - React Infinite Scroll Component para paginación infinita
-- [Lucide](https://lucide.dev/) para los íconos (utilizados en la interfaz)
+- [Lucide](https://lucide.dev/) para los íconos
 
 ---
 

@@ -23,8 +23,8 @@ Utiliza React, Vite y TailwindCSS para construir una interfaz rápida, responsiv
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/tuusuario/tu-repo.git
-cd tu-repo
+git clone https://github.com/andixeneize/tenpo.git
+cd tenpo
 ```
 
 2. Instalar dependencias:
@@ -43,7 +43,7 @@ npm run dev
 yarn dev
 ```
 
-4. Abrir `http://localhost:3000` en tu navegador.
+4. Abrir `http://localhost:5173` en tu navegador.
 
 ---
 

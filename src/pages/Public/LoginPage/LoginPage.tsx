@@ -55,8 +55,11 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100 font-sans'>
-      <div className='bg-white p-8 rounded-lg shadow-md text-center max-w-md w-full'>
+    <div
+      className='min-h-screen flex flex-col items-center justify-center p-4 bg-cover bg-center font-sans'
+      style={{ backgroundImage: "url('/images/login-bg.jpg')" }}
+    >
+      <div className='bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-lg shadow-lg text-center max-w-md w-full'>
         <h1 className='text-3xl font-bold text-gray-800 mb-4'>Login</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>

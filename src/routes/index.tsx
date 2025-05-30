@@ -9,7 +9,7 @@ const AppRouter: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/tenpo'>
       <Routes>
         <Route
           path={`${PATH_NAMES.PUBLIC.LOGIN}/*`}

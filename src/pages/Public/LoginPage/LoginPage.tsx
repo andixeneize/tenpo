@@ -56,15 +56,22 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className='min-h-screen flex flex-col md:flex-row font-sans'>
-      {/* Parte superior en mobile, izquierda en desktop */}
+      {/* Left side (desktop) / Top (mobile) */}
       <div
         className='w-full md:w-1/2 h-[50vh] md:h-auto bg-cover bg-center'
         style={{ backgroundImage: "url('/images/login-bg.jpg')" }}
       />
 
-      {/* Parte inferior en mobile, derecha en desktop */}
-      <div className='w-full md:w-1/2 h-1/2 md:h-auto flex items-center justify-center bg-white'>
-        <div className='p-8 text-center w-full'>
+      {/* Right side (desktop) / Bottom (mobile) */}
+      <div className='w-full md:w-1/2 h-[50vh] md:h-auto flex items-center justify-center bg-white'>
+        <div className='p-8 text-center w-full max-w-md'>
+          {/* Logo (desktop) */}
+          <img
+            src='/images/logo.png'
+            alt='Logo'
+            className='hidden md:block mx-auto mb-6 w-24 h-24'
+          />
+
           <h1 className='text-3xl font-bold text-gray-800 mb-4'>Login</h1>
 
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -89,7 +96,7 @@ const LoginPage: React.FC = () => {
             <button
               type='submit'
               disabled={loading}
-              className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition'
+              className='px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition'
             >
               {loading ? 'Logging in...' : 'Log In'}
             </button>

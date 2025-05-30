@@ -88,4 +88,4 @@ La lista de libros se muestra con scroll infinito, lo que permite cargar progres
 
 ## Enlace al sitio publicado
 
-(Agregar enlace una vez publicado)
+https://andixeneize.github.io
